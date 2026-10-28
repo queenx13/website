@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Envelope</title>
+    <style>
+        /* General Styles */
+        body {
+            background-color: #ffe6f2; /* Light pink background */
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Envelope Container */
+        .envelope-container {
+            position: relative;
+            width: 700px;
+            height: 200px;
+            cursor: pointer;
+        }
+
+        /* Envelope Design */
+        .envelope {
+            width: 100%;
+            height: 100%;
+            background-color: #ff4444; /* Red envelope */
+            position: relative;
+            transition: transform 0.5s ease;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .envelope::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.2), transparent);
+            border-radius: 10px;
+        }
+
+        /* Heart and Initials */
+        .heart {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 60px;
+            color: white;
+            opacity: 0.8;
+            z-index: 1;
+        }
+
+        .initial {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 40px;
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            opacity: 0.9;
+        }
+
+        .n {
+            right: 55%; /* Positions 'N' to the left of the heart */
+        }
+
+        .s {
+            left: 55%; /* Positions 'S' to the right of the heart */
+        }
+
+        /* Letter Design */
+        .letter {
+            position: absolute;
+            width: 90%;
+            height: 300px;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: all 0.5s ease;
+            z-index: -1;
+            overflow-y: auto;
+            border-radius: 10px;
+        }
+
+        .letter p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Open Animation */
+        .open .letter {
+            transform: translate(-50%, -150%) scale(1);
+            z-index: 1;
+        }
+
+        .open .envelope {
+            transform: translateY(150px);
+        }
+
+        /* Buttons */
+        .button-container {
+            margin-top: 20px;
+            position: relative;
+            height: 40px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #ff4444;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: opacity 0.3s;
+        }
+
+        #closeBtn {
+            display: none;
+        }
+
+        /* Floating Hearts */
+        .hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .heart-animation {
+            position: absolute;
+            color: #ff4444;
+            animation: float 5s infinite linear;
+            opacity: 0;
+            font-size: 24px;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="envelope-container">
+        <div class="envelope">
+            <!-- Heart and Initials -->
+            <div class="initial n">N</div>
+            <div class="heart">❤</div>
+            <div class="initial s">S</div>
+
+            <!-- Letter -->
+            <div class="letter">
+                <p>MY LOVELY OTHER HALF,<br><br>
+                FIRST OF ALL HAPPYYY BIRTHDAYYYYY!!!...<br><br>
+                UHMMMM so i'm not really that good in coding nor i understand anything in this but i wanted to try it out for you since I'm not near you to make your birthday extraordinarily special, so im sending you this virtual letter that i tried making for you EHEHEHE, ANYWAYS i wanna let you know that you're really very special to me no matter how far we are, I'll always be there for you and support you in everything, I know how left out makes us both feel between new people but i'm sure we are coping up with it by having each other at our side.<br><br>
+
+To me distance doesn't matter with you because i trust you the most and there's literally no one ever I have met who has been through everything with me, no matter what i know that out friendship is that strong enough that no one can break it, and I really miss you so much but i'm glad we get to enjoy everything in our way and hope this keeps going on and never ends, and i wanna say THANK YOU for everything you have ever done for me, and I REALLY LOVE YOU SO MUCH AND I TRUST OUR BOND WOULD NEVER BREAK and make evryone jelous MWAHAHAHAHA, Anyways once again HAPPYYY BIRTHDAYYYY you're officially an adult now... you can literally adopt me OML heheehe.<br><br>
+
+MOVING ON TAKE CAREEEE OF YOURSELF CUZ YOU REALLY MEAN SO MUCH TO ME OKAY and never doubt it, even though the whole world goes against you I'LL BE THERE STANDING RIGHT BESIDE AND SUPPORT YOU NO MATTER WHAT!! MWAHHHHHHH HEHE *virtual hugs*. AND GOODLUCKK FOR YOUR BOARDS AND I CAN'T WAIT TO MEET YOUUU <<33<br><br>
+
+( also dw no one read this letter until they put the password which is only with YOU. TQ )<br><br>
+                With love for MY PRETTY BBG,<br>
+                [~Your Noor]</p>
+            </div>
+        </div>
+        <div class="hearts" id="hearts"></div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="button-container">
+        <button id="openBtn" onclick="toggleEnvelope(true)">Open</button>
+        <button id="closeBtn" onclick="toggleEnvelope(false)">Close</button>
+    </div>
+
+    <script>
+        let isOpen = false;
+
+        function toggleEnvelope(shouldOpen) {
+            const envelope = document.querySelector('.envelope-container');
+            const openBtn = document.getElementById('openBtn');
+            const closeBtn = document.getElementById('closeBtn');
+
+            if (shouldOpen) {
+                envelope.classList.add('open');
+                openBtn.style.display = 'none';
+                closeBtn.style.display = 'block';
+                createHearts();
+            } else {
+                envelope.classList.remove('open');
+                openBtn.style.display = 'block';
+                closeBtn.style.display = 'none';
+                clearHearts();
+            }
+        }
+
+        function createHearts() {
+            const heartsContainer = document.getElementById('hearts');
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart-animation';
+                heart.innerHTML = '❤';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 2 + 's';
+                heartsContainer.appendChild(heart);
+            }
+        }
+
+        function clearHearts() {
+            const hearts = document.querySelectorAll('.heart-animation');
+            hearts.forEach(heart => heart.remove());
+        }
+    </script>
+<script>
+  const password = "forsafa25"; // Set your password here
+  const user = prompt("Enter the password to view this page:");
+  
+  if (user !== password) {
+    window.location.href = "about:blank"; // Redirect to a blank page
+  }
+</script>
+
+</body>
+</html>
